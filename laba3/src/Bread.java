@@ -1,78 +1,77 @@
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Objects;
 
-public class Bread {
-    private Bread[] breads;
-    private String batch;//Партия
-    private double weight;
-    private Date dayWeek;
-    private String name;
+public class Bread implements Process_Object {
+    private Name_Product[] names;
+    private int number_batch;
+    private String day;
+    private boolean isNormal;
 
-    Bread() {
-
+    public Bread(Name_Product[] names) {
+        this.names = names;
     }
 
-    Bread(double weight, String batch, String date, int count,String name,Bread[] breads) {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        try {
-            dayWeek = format.parse(date);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.weight = weight;
-        this.batch = batch;
-        breads = new Bread[count];
-        this.name=name;
-        System.arraycopy(breads,0,this.breads,0,count);
+    public Bread(Name_Product[] names, int number_batch, String day, boolean isNormal) {
+        this.names = names;
+        this.number_batch = number_batch;
+        this.day = day;
+        this.isNormal = isNormal;
     }
 
-    public Date getDay() {
-        return dayWeek;
+    public Name_Product[] getNames() {
+        return names;
     }
 
-    public double getWeight() {
-        return weight;
+    public void setNames(Name_Product[] names) {
+        this.names = names;
     }
 
-    public String getBatch() {
-        return batch;
+    public int getNumber_batch() {
+        return number_batch;
     }
 
-    public Bread[] getHealthy() {
-        return breads;
+    public void setNumber_batch(int number_batch) {
+        this.number_batch = number_batch;
     }
 
-    public int getDefect() {
-        int countDefect = 0;
-        for (int i = 0; i < breads.length; i++) {
-            if (breads[i].weight > 800) {
-                countDefect += 1;
-            }
-        }
-        return countDefect;
-    }
-    public int getValueBreads(){
-        return breads.length;
+    public String getDay() {
+        return day;
     }
 
-    public String[] dayProduction(String day){
-        String[] dayBreads=new String[this.breads.length];
-        for (int i=0;i<this.breads.length;i++){
-            if(breads[i].dayWeek.toString()==day){
-                dayBreads[i]=breads[i].dayWeek.toString();
-            }
-        }
-
-        return dayBreads;
-
-    }
-    public double averageWeight(){
-        double sum=0;
-        for (int i=0;i<breads.length;i++){
-            sum+=breads[i].weight;
-        }
-        return sum/2;
+    public void setDay(String day) {
+        this.day = day;
     }
 
+    public boolean isNormal() {
+        return isNormal;
+    }
 
+    public void setNormal(boolean normal) {
+        isNormal = normal;
+    }
+
+    @Override
+    public String toString() {
+        return "Bread{" +
+                "names=" + Arrays.toString(names) +
+                ", number_batch=" + number_batch +
+                ", day='" + day + '\'' +
+                ", isNormal=" + isNormal +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bread bread = (Bread) o;
+        return number_batch == bread.number_batch && isNormal == bread.isNormal && Arrays.equals(names, bread.names) && Objects.equals(day, bread.day);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(number_batch, day, isNormal);
+        result = 31 * result + Arrays.hashCode(names);
+        return result;
+    }
 }

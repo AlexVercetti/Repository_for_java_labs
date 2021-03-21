@@ -1,28 +1,85 @@
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Arrays;
+import java.util.Objects;
 
-public class Sweet {
-    private Sweet[] sweets;
-    private String batch;//Партия
-    private double weight;
-    private Date dayWeek;
-    private String name;
+public class Sweet implements Process_Object {
+    private Name_Product[] names;
+    private int number_batch;
+    private String day;
+    private boolean isNormal;
 
-    Sweet() {
+    public Sweet(Name_Product[] names) {
+        this.names = names;
+    }
+
+    public Sweet(Name_Product[] names, int number_batch, String day, boolean isNormal) {
+        this.names = names;
+        this.number_batch = number_batch;
+        this.day = day;
+        this.isNormal = isNormal;
+    }
+
+    @Override
+    public String toString() {
+        return "Sweet{" +
+                "names=" + Arrays.toString(names) +
+                ", number_batch=" + number_batch +
+                ", day='" + day + '\'' +
+                ", isNormal=" + isNormal +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Sweet sweet = (Sweet) o;
+        return number_batch == sweet.number_batch && isNormal == sweet.isNormal && Arrays.equals(names, sweet.names) && Objects.equals(day, sweet.day);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(number_batch, day, isNormal);
+        result = 31 * result + Arrays.hashCode(names);
+        return result;
+    }
+
+    @Override
+    public Name_Product[] getNames() {
+        return new Name_Product[0];
+    }
+
+    @Override
+    public void setNames(Name_Product[] names) {
 
     }
 
-    Sweet(double weight, String batch, String date, int count,String name,Sweet[] sweets) {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        try {
-            dayWeek = format.parse(date);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.weight = weight;
-        this.batch = batch;
-        sweets = new Sweet[count];
-        this.name=name;
-        System.arraycopy(sweets,0,this.sweets,0,count);
+    @Override
+    public int getNumber_batch() {
+        return 0;
+    }
+
+    @Override
+    public void setNumber_batch(int number_batch) {
+
+    }
+
+    @Override
+    public String getDay() {
+        return null;
+    }
+
+    @Override
+    public void setDay(String day) {
+
+    }
+
+    @Override
+    public boolean isNormal() {
+        return false;
+    }
+
+    @Override
+    public void setNormal(boolean normal) {
+
     }
 }
