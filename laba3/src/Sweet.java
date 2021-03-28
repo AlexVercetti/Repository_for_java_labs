@@ -44,6 +44,20 @@ public class Sweet implements Process_Object {
     }
 
     @Override
+    public int equalObject() {
+        int count=0;
+        for(int i=0;i< names.length-1;i++){
+            for (int j=i+1;j< names.length;j++) {
+
+                if (names[i] == names[j]) {
+                    count += 1;
+                }
+            }
+        }
+        return count;
+    }
+
+    @Override
     public Name_Product[] getNames() {
         return new Name_Product[0];
     }

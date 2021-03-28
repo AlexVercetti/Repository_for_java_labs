@@ -18,12 +18,33 @@ public class Bread implements Process_Object {
         this.isNormal = isNormal;
     }
 
+    @Override
+    public int equalObject() {
+        int count=0;
+        for(int i=0;i< names.length-1;i++){
+            for (int j=i+1;j< names.length;j++) {
+
+                if (names[i] == names[j]) {
+                    count += 1;
+                }
+            }
+        }
+        return count;
+    }
+
+    @Override
     public Name_Product[] getNames() {
         return names;
     }
 
     public void setNames(Name_Product[] names) {
-        this.names = names;
+        try {
+            this.names = names;
+        }
+        catch (ArrayStoreException ex){
+            System.out.print("Ошибка. Введён не правильный тип данных Вася");
+        }
+
     }
 
     public int getNumber_batch() {
@@ -31,15 +52,26 @@ public class Bread implements Process_Object {
     }
 
     public void setNumber_batch(int number_batch) {
-        this.number_batch = number_batch;
+
+        try {
+            this.number_batch = number_batch;
+        }
+        catch (IllegalArgumentException уч){
+            System.out.print("Неверный тип дружок");
+        }
     }
 
     public String getDay() {
+
         return day;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setDay(String day) throws ObjectException {
+        if(day=="Понедельник"||day=="Вторник"||day=="Среда"||day=="Четверг"||day=="Пятница"||day=="Суббота"||day=="Воскресенье") {
+            this.day = day;
+        }
+        else
+            throw new ObjectException("Братишка походу это не день");
     }
 
     public boolean isNormal() {
@@ -67,6 +99,8 @@ public class Bread implements Process_Object {
         Bread bread = (Bread) o;
         return number_batch == bread.number_batch && isNormal == bread.isNormal && Arrays.equals(names, bread.names) && Objects.equals(day, bread.day);
     }
+
+
 
     @Override
     public int hashCode() {
