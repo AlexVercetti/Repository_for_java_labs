@@ -20,9 +20,9 @@ public class Bread implements Process_Object {
 
     @Override
     public int equalObject() {
-        int count=0;
-        for(int i=0;i< names.length-1;i++){
-            for (int j=i+1;j< names.length;j++) {
+        int count = 0;
+        for (int i = 0; i < names.length - 1; i++) {
+            for (int j = i + 1; j < names.length; j++) {
 
                 if (names[i] == names[j]) {
                     count += 1;
@@ -40,9 +40,8 @@ public class Bread implements Process_Object {
     public void setNames(Name_Product[] names) {
         try {
             this.names = names;
-        }
-        catch (ArrayStoreException ex){
-            System.out.print("Ошибка. Введён не правильный тип данных Вася");
+        } catch (ArrayStoreException ex) {
+            System.out.print("Ошибка. Введён не правильный тип данных ");
         }
 
     }
@@ -55,8 +54,7 @@ public class Bread implements Process_Object {
 
         try {
             this.number_batch = number_batch;
-        }
-        catch (IllegalArgumentException уч){
+        } catch (IllegalArgumentException ex) {
             System.out.print("Неверный тип дружок");
         }
     }
@@ -67,11 +65,10 @@ public class Bread implements Process_Object {
     }
 
     public void setDay(String day) throws ObjectException {
-        if(day=="Понедельник"||day=="Вторник"||day=="Среда"||day=="Четверг"||day=="Пятница"||day=="Суббота"||day=="Воскресенье") {
+        if (day == "Понедельник" || day == "Вторник" || day == "Среда" || day == "Четверг" || day == "Пятница" || day == "Суббота" || day == "Воскресенье") {
             this.day = day;
-        }
-        else
-            throw new ObjectException("Братишка походу это не день");
+        } else
+            throw new ObjectException("Ошибка. Наверное это не день");
     }
 
     public boolean isNormal() {
@@ -99,7 +96,6 @@ public class Bread implements Process_Object {
         Bread bread = (Bread) o;
         return number_batch == bread.number_batch && isNormal == bread.isNormal && Arrays.equals(names, bread.names) && Objects.equals(day, bread.day);
     }
-
 
 
     @Override

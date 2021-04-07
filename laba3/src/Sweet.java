@@ -45,9 +45,9 @@ public class Sweet implements Process_Object {
 
     @Override
     public int equalObject() {
-        int count=0;
-        for(int i=0;i< names.length-1;i++){
-            for (int j=i+1;j< names.length;j++) {
+        int count = 0;
+        for (int i = 0; i < names.length - 1; i++) {
+            for (int j = i + 1; j < names.length; j++) {
 
                 if (names[i] == names[j]) {
                     count += 1;
@@ -59,31 +59,44 @@ public class Sweet implements Process_Object {
 
     @Override
     public Name_Product[] getNames() {
-        return new Name_Product[0];
+        return names;
     }
 
     @Override
     public void setNames(Name_Product[] names) {
+        try {
+            this.names = names;
+        } catch (ArrayStoreException ex) {
+            System.out.print("Ошибка. Введён не правильный тип данных ");
+        }
 
     }
 
     @Override
     public int getNumber_batch() {
-        return 0;
+        return this.number_batch;
     }
 
     @Override
     public void setNumber_batch(int number_batch) {
-
+        try {
+            this.number_batch = number_batch;
+        } catch (IllegalArgumentException ex) {
+            System.out.print("Неверный тип дружок");
+        }
     }
 
     @Override
     public String getDay() {
-        return null;
+        return day;
     }
 
     @Override
-    public void setDay(String day) {
+    public void setDay(String day) throws ObjectException {
+        if (day == "Понедельник" || day == "Вторник" || day == "Среда" || day == "Четверг" || day == "Пятница" || day == "Суббота" || day == "Воскресенье") {
+            this.day = day;
+        } else
+            throw new ObjectException("Ошибка. Наверное это не день");
 
     }
 

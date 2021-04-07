@@ -25,8 +25,8 @@ public class Main {
         array_1.add(new Bread(batch_2, 2, "Среда", true));
         array_1.add(new Bread(batch_3, 3, "Понедельник", true));
         array_1.add(new Sweet(batch_4, 4, "Четверг", true));
-        for (Process_Object obj:array_1){
-            System.out.print(obj+"\n");
+        for (Process_Object obj : array_1) {
+            System.out.print(obj + "\n");
         }
 
         ArrayList<Process_Object> array_2 = new ArrayList<Process_Object>();
@@ -39,8 +39,8 @@ public class Main {
             }
         }
         System.out.print("\n");
-        for (Process_Object obj:array_2){
-            System.out.print(obj+"\n");
+        for (Process_Object obj : array_2) {
+            System.out.print(obj + "\n");
         }
         String[] day = new String[array_1.size()];
         int[] number_batch = new int[array_1.size()];
