@@ -18,13 +18,23 @@ public class Main {
         batch_3[2] = Name_Product.Отрубной;
         Name_Product[] batch_4 = new Name_Product[3];
         batch_4[0] = Name_Product.Вкусняшка;
-        batch_4[1] = Name_Product.Маффин_светлый;
+        batch_4[1] = Name_Product.Лакомка;
         batch_4[2] = Name_Product.Маффин_светлый;
+        Name_Product[] batch_5 = new Name_Product[3];
+        batch_5[0] = Name_Product.Вкусняшка;
+        batch_5[1] = Name_Product.Твороженка;
+        batch_5[2] = Name_Product.Маффин_светлый;
+        Name_Product[] batch_6 = new Name_Product[3];
+        batch_6[0] = Name_Product.Вкусняшка;
+        batch_6[1] = Name_Product.Вкусняшка;
+        batch_6[2] = Name_Product.Маффин_чёрный;
         ArrayList<Process_Object> array_1 = new ArrayList<Process_Object>();
         array_1.add(new Bread(batch_1, 1, "Четверг", true));
         array_1.add(new Bread(batch_2, 2, "Среда", true));
         array_1.add(new Bread(batch_3, 3, "Понедельник", true));
         array_1.add(new Sweet(batch_4, 4, "Четверг", true));
+        array_1.add(new Sweet(batch_5, 5, "Суббота", true));
+        array_1.add(new Sweet(batch_6, 6, "Вторник", true));
         for (Process_Object obj : array_1) {
             System.out.print(obj + "\n");
         }
@@ -33,8 +43,13 @@ public class Main {
         for (int i = 0; i <= array_1.size() - 1; i++) {
             for (int j = i + 1; j < array_1.size(); j++) {
                 if (array_1.get(i).equalObject() == array_1.get(j).equalObject() && array_1.get(i).equalObject() > 0 && array_1.get(j).equalObject() > 0) {
-                    array_2.add(array_1.get(i));
-                    array_2.add(array_1.get(j));
+                    if (array_2.contains(array_1.get(i)) && array_2.contains(array_1.get(j))){
+                        continue;
+                    }
+                    else {
+                        array_2.add(array_1.get(i));
+                        array_2.add(array_1.get(j));
+                    }
                 }
             }
         }

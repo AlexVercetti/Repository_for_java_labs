@@ -21,7 +21,7 @@ public class Bread implements Process_Object {
     @Override
     public int equalObject() {
         int count = 0;
-        for (int i = 0; i < names.length - 1; i++) {
+        for (int i = 0; i <= names.length - 1; i++) {
             for (int j = i + 1; j < names.length; j++) {
 
                 if (names[i] == names[j]) {
