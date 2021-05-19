@@ -1,0 +1,107 @@
+import java.util.Arrays;
+import java.util.Objects;
+
+public class Bread implements Process_Object {
+    private Names[] products;
+    private int number_batch;
+    private String day;
+    private boolean isNormal;
+
+    public Bread(Names[] names) {
+        this.products = names;
+    }
+
+    public Bread(Names[] names, int number_batch, String day, boolean isNormal) {
+        this.products = names;
+        this.number_batch = number_batch;
+        this.day = day;
+        this.isNormal = isNormal;
+    }
+
+    @Override
+    public int equalObject() {
+        int count = 0;
+        for (int i = 0; i <= products.length - 1; i++) {
+            for (int j = i + 1; j < products.length; j++) {
+
+                if (products[i] == products[j]) {
+                    count += 1;
+                }
+            }
+        }
+        return count;
+    }
+
+    @Override
+    public Names[] getNames() {
+        return products;
+    }
+
+    public void setNames(Names[] names) {
+        try {
+            this.products = names;
+        } catch (ArrayStoreException ex) {
+            System.out.print("Ошибка. Введён не правильный тип данных ");
+        }
+
+    }
+
+    public int getNumber_batch() {
+        return number_batch;
+    }
+
+    public void setNumber_batch(int number_batch) {
+
+        try {
+            this.number_batch = number_batch;
+        } catch (IllegalArgumentException ex) {
+            System.out.print("Неверный тип дружок");
+        }
+    }
+
+    public String getDay() {
+
+        return day;
+    }
+
+    public void setDay(String day) throws ObjectException {
+        if (day == "Понедельник" || day == "Вторник" || day == "Среда" || day == "Четверг" || day == "Пятница" || day == "Суббота" || day == "Воскресенье") {
+            this.day = day;
+        } else
+            throw new ObjectException("Ошибка. Наверное это не день");
+    }
+
+    public boolean isNormal() {
+        return isNormal;
+    }
+
+    public void setNormal(boolean normal) {
+        isNormal = normal;
+    }
+
+    @Override
+    public String toString() {
+        return "Bread{" +
+                "names=" + Arrays.toString(products) +
+                ", number_batch=" + number_batch +
+                ", day='" + day + '\'' +
+                ", isNormal=" + isNormal +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bread bread = (Bread) o;
+        return number_batch == bread.number_batch && isNormal == bread.isNormal && Arrays.equals(products, bread.products) && Objects.equals(day, bread.day);
+    }
+
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(number_batch, day, isNormal);
+        result = 31 * result + Arrays.hashCode(products);
+        return result;
+    }
+}
