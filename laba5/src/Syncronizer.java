@@ -1,29 +1,47 @@
 public class Syncronizer {
-    private final Names s;
-    private volatile int currIndex = 0;
-    private volatile boolean isElSet = false;
-
+    private  Names s;
+    private volatile int currIndex ;
+    private volatile boolean isElSet ;
+    private final Object locker;
+    private boolean set;
 
 
     public Syncronizer(Names s) {
         this.s = s;
+        this.currIndex=0;
+        locker=new Object();
+        isElSet=false;
     }
-
-    void write(int val) throws InterruptedException {
-        synchronized (s) {
-            if (!canWrite()) {
-                throw new InterruptedException();
+    public void writeToConsole(int val)
+            throws ObjectException {
+        synchronized(locker) {
+            if (!canWrite())
+            {
+                throw new ObjectException();
             }
-            while (isElSet) {
-                s.wait();
-            }
-
-            //заполенение массива
-            isElSet = true;
-            System.out.println("WRITE " + val + " to   position " + currIndex);
-
-            s.notifyAll();
+            while (set)
+                locker.wait();
+            s.setNames(current, val);
+            System.out.println("Write: " + val);
+            set = true;
+            locker.notifyAll();
         }
+    }
+    public int readFromConsole() throws ObjectException {
+        int value;
+        synchronized(locker) {
+            if (!canRead())
+                throw new ObjectException();
+            while (!set)
+            {
+                locker.wait();
+            }
+            value = s.getNames()[currIndex++];
+            System.out.println("Read: " + value);
+            set = false;
+            locker.notifyAll();
+        }
+        return value;
     }
 
     private boolean canWrite() {
@@ -40,7 +58,7 @@ public class Syncronizer {
                 s.wait();
             }
 
-            val = s.getNumOfPagesOfEl(currIndex);
+            val = s.getNames(currIndex);
             isElSet = false;
             System.out.println("READ  " + val + " from position " + currIndex);
             currIndex++;
@@ -50,10 +68,10 @@ public class Syncronizer {
     }
 
     private boolean canRead() {
-        return currIndex < s.getNumOfEls();
+        return currIndex < s.getNames();
     }
 
-    int getSerNumOfEls() {
-        return s.getNumOfEls();
+    int getCountNames() {
+        return s.getNames();
     }
 }

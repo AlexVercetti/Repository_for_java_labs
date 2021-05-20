@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Test {
     public static void main(String[] args){
+        //1 задание
         Random random=new Random();
 
         Names[] name_sweet=new Names[6];
@@ -25,12 +26,18 @@ public class Test {
 
         Names bt_1[]=new Names[2];
 
-        int[] arr=new int[10];
+        Names[] arr=new Names[10];
         FirsThread thr=new FirsThread(arr);
         SecondThread thr_1=new SecondThread(arr);
         thr.run();
         thr_1.run();
+        //2 задание
+        Syncronizer synchNames=new Syncronizer(bt_1);
+        RunThreadSecond writeThr=new RunThreadSecond(synchNames);
+        RunThreadFirst readThr=new RunThreadFirst(synchNames);
 
+        writeThr.run();
+        readThr.run();
 
 
 
